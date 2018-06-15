@@ -41,29 +41,24 @@ public class BlackjackService {
     }
 
     public GameRoom bet(String roomId, User user, long bet) {
-        GameRoom gameRoom = gameRoomMap.get(roomId);
 
+        GameRoom gameRoom = gameRoomMap.get(roomId);
         gameRoom.reset();
         gameRoom.bet(user.getName(), bet);
         gameRoom.deal();
-
         return gameRoom;
     }
-
     public GameRoom hit(String roomId, User user) {
         GameRoom gameRoom = gameRoomMap.get(roomId);
-
         gameRoom.hit(user.getName());
-
         return gameRoom;
     }
 
-    public GameRoom stand(String roomId, User user) {
+    public GameRoom stand(String roomId, User user, long i) {
         GameRoom gameRoom = gameRoomMap.get(roomId);
-
+        if(i==1)gameRoom.plusbet(user.getName());
         gameRoom.stand(user.getName());
         gameRoom.playDealer();
-
         return gameRoom;
     }
 

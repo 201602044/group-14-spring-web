@@ -418,6 +418,7 @@
     </div>
 </div>
 <div class="page" id="game" style="display: none">
+    <div id="name_money"></div>
     <div class="dealer-cards"></div>
     <div class="clear"></div>
     <div class="player-cards"></div>
@@ -445,6 +446,7 @@
     var user;
     var gameRoomId;
     var i=0;
+    var defaultBet=0;
     $('#login_button').click(function() {
         var loginName = $('#input_login_name').val();
         $.ajax({
@@ -553,6 +555,7 @@
 
         $('#bet').html(currentBet - bet);
         $('#money').html(money + bet);
+
     });
 <!--less와 more 배팅할때 defaulgt 값을 1000으로 변경 -->
 
@@ -560,8 +563,23 @@ $('#doubledown').click(function(){
         if(i<1) {
         var currentBet = parseInt($('#bet').html());
         var money = parseInt($('#money').html());
-        $('#bet').html(currentBet*2);
-        $('#money').html(money-currentBet);
+
+
+            if (money-currentBet<0) {
+             $('#bet').html(currentBet+money);
+             $('#money').html(0);
+             }
+           else{
+            $('#bet').html(currentBet*2);
+            $('#money').html(money-currentBet);
+            }
+           currentBet = parseInt($('#bet').html());
+           money = parseInt($('#money').html());
+            if(currentBet>10000){
+             $('#bet').html(10000);
+            $('#money').html(money+(currentBet-10000));
+         <!--돈10000원넘길시 예외처리-->
+            }
         i++;
         }
         else return;
@@ -569,6 +587,7 @@ $('#doubledown').click(function(){
 <!--doubledown-->
     function drawGameRoom(gameRoom) {
         console.log(gameRoom);
+
         if (gameRoom.finished) {
             $('#deal').show();
             $('#more').show();
@@ -606,6 +625,7 @@ $('#doubledown').click(function(){
 
         $('#bet').html(gameRoom.playerList[user.name].currentBet);
         $('#money').html(gameRoom.playerList[user.name].balance);
+              $('#name_money').html("이름"+user.name+"\n머니"+$('#money').html());
     }
 
     function generateCardDiv(rank, suit) {

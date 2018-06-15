@@ -22,7 +22,7 @@ public class Hand {
         cardList.add(card);
         return card;
     }
-
+//    merge해야함
     public int getCardSum() {
         return cardList.stream().mapToInt(card -> card.getRank()).sum();
     }

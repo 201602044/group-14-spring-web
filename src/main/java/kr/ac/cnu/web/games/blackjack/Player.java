@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void placeBet(long bet) {
-        if(balance < bet) {
+        if(balance < bet || balance>100000) {
             throw new NotEnoughBalanceException();
         }
         balance -= bet;
@@ -56,7 +56,6 @@ public class Player {
         balance += currentBet;
         currentBet = 0;
     }
-
     public void lost() {
         currentBet = 0;
     }

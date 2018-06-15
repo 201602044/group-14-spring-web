@@ -3,6 +3,8 @@ package kr.ac.cnu.web.service;
 import kr.ac.cnu.web.games.blackjack.Deck;
 import kr.ac.cnu.web.games.blackjack.GameRoom;
 import kr.ac.cnu.web.model.User;
+import kr.ac.cnu.web.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,6 +17,8 @@ import java.util.Map;
 public class BlackjackService {
     private final int DECK_NUMBER = 1;
     private final Map<String, GameRoom> gameRoomMap = new HashMap<>();
+    @Autowired
+    private UserRepository userRepository;
 
     public GameRoom createGameRoom(User user) {
         Deck deck = new Deck(DECK_NUMBER);
@@ -54,6 +58,9 @@ public class BlackjackService {
         GameRoom gameRoom = gameRoomMap.get(roomId);
 
         gameRoom.hit(user.getName());
+        //System.out.println(gameRoom.getPlayerList().get(user.getName()).getBalance());
+        user.setAccount(gameRoom.getPlayerList().get(user.getName()).getBalance());
+        userRepository.save(user);
 
         return gameRoom;
     }
@@ -63,6 +70,8 @@ public class BlackjackService {
 
         gameRoom.stand(user.getName());
         gameRoom.playDealer();
+        user.setAccount(gameRoom.getPlayerList().get(user.getName()).getBalance());
+        userRepository.save(user);
 
         return gameRoom;
     }

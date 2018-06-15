@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Created by rokim on 2018. 5. 26..
@@ -24,7 +25,18 @@ public class Hand {
     }
 
     public int getCardSum() {
-        return cardList.stream().mapToInt(card -> card.getRank()).sum();
+        int sum = 0;
+        for(int i = 0; i < cardList.size(); i++){
+            Card card = cardList.get(i);
+            if(card.getRank() > 10) {
+                sum += 10;
+            }
+            else{
+                sum += card.getRank();
+            }
+        }
+        return sum;
+        //return cardList.stream().mapToInt(card -> card.getRank()).sum();
     }
 
     public void reset() {

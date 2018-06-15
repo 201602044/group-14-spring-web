@@ -30,7 +30,10 @@ public class Evaluator {
             } else if (playerResult == dealerResult) {
                 player.tie();
             } else {
-                player.lost();
+                if(dealerResult < 22)
+                    player.lost();
+                else
+                    player.win();
             }
         });
 

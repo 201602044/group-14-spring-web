@@ -48,6 +48,10 @@ public class Player {
         balance += currentBet * 2;
         currentBet = 0;
     }
+    public void blackjack() {
+        balance += (currentBet*2) * 1.5;
+        currentBet = 0;
+    }
 
     public void tie() {
         balance += currentBet;

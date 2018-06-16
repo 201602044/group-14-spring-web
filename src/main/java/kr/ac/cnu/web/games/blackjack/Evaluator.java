@@ -3,7 +3,7 @@ package kr.ac.cnu.web.games.blackjack;
 import java.util.Map;
 
 /**
- * Created by rokim on 2018. 5. 27..
+ * Created by rokim on 2018. 5. 27...
  */
 public class Evaluator {
     private Map<String, Player> playerMap;

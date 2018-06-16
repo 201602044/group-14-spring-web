@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
-@Slf4j
+@Slf4j 
 @EnableAspectJAutoProxy
 //@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class WebApplication {

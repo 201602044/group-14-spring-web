@@ -63,6 +63,7 @@ public class GameRoom {
 		player.hitCard();
 
 		if (player.getHand().getCardSum() > 21) {
+            player.stand();
 			evaluator.evaluate();
 			this.isFinished = true;
 		}

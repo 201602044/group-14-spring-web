@@ -3,7 +3,7 @@ package kr.ac.cnu.web.games.blackjack;
 import java.util.Map;
 
 /**
- * Created by rokim on 2018. 5. 27..
+ * Created by rokim on 2018. 5. 27...
  */
 public class Evaluator {
     private Map<String, Player> playerMap;
@@ -21,27 +21,31 @@ public class Evaluator {
 
         int dealerResult = dealer.getHand().getCardSum();
 
-        if (dealerResult > 21) {
-            playerMap.forEach((s, player) -> player.win());
-
-            return true;
-        }
-
         playerMap.forEach((s, player) -> {
             int playerResult = player.getHand().getCardSum();
             if(playerResult==21){
                 player.blackjack();
             }
             else if (playerResult > 21) {
+
                 player.lost();
-            } else if (playerResult > dealerResult) {
+            }else if (playerResult > dealerResult) {
                 player.win();
             } else if (playerResult == dealerResult) {
                 player.tie();
             } else {
-                player.lost();
+                if(dealerResult < 22)
+                    player.lost();
+                else
+                    player.win();
             }
         });
+
+        if (dealerResult > 21) {
+            playerMap.forEach((s, player) -> player.win());
+
+            return true;
+        }
 
         return true;
     }

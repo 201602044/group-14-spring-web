@@ -63,10 +63,15 @@ public class GameRoom {
         playerList.forEach((s, player) -> player.deal());
     }
 
-    public Card hit(String name) {
+    public void hit(String name) {
         Player player = playerList.get(name);
+		player.hitCard();
 
-        return player.hitCard();
+		if (player.getHand().getCardSum() > 21) {
+            player.stand();
+			evaluator.evaluate();
+			this.isFinished = true;
+		}
     }
 
     public void stand(String name) {

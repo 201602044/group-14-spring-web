@@ -70,7 +70,6 @@ public class BlackApiController {
 
         return blackjackService.bet(roomId, user, betMoney);
     }
-
     @PostMapping("/rooms/{roomId}/hit")
     public GameRoom hit(@RequestHeader("name") String name, @PathVariable String roomId) {
         User user = this.getUserFromSession(name);
@@ -78,11 +77,10 @@ public class BlackApiController {
         return blackjackService.hit(roomId, user);
     }
 
-    @PostMapping("/rooms/{roomId}/stand")
-    public GameRoom stand(@RequestHeader("name") String name, @PathVariable String roomId) {
+    @PostMapping(value="/rooms/{roomId}/stand" , consumes = MediaType.APPLICATION_JSON_VALUE)
+    public GameRoom stand(@RequestHeader("name") String name, @PathVariable String roomId, @RequestBody long i) {
         User user = this.getUserFromSession(name);
-
-        return blackjackService.stand(roomId, user);
+        return blackjackService.stand(roomId, user, i);
     }
 
     @GetMapping("/rooms/{roomId}")

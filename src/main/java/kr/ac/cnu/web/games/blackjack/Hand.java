@@ -23,7 +23,7 @@ public class Hand {
         cardList.add(card);
         return card;
     }
-
+//    merge해야함
     public int getCardSum() {
         int sum = 0;
         int check_Ace = 0;

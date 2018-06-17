@@ -48,8 +48,13 @@ public class GameRoom {
 
     public void bet(String name, long bet) {
         Player player = playerList.get(name);
-
         player.placeBet(bet);
+    }
+    public void plusbet(String name) {
+        Player player = playerList.get(name);
+        long i=player.getCurrentBet();
+        player.tie();
+        player.placeBet(i*2);
     }
 
     public void deal() {

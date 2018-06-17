@@ -14,6 +14,7 @@ public class Player {
     private long currentBet;
     @Getter
     private boolean isPlaying;
+
     @Getter
     private Hand hand;
 
@@ -30,12 +31,11 @@ public class Player {
     }
 
     public void placeBet(long bet) {
-        if(balance < bet) {
+        if(balance < bet || balance>100000) {
             throw new NotEnoughBalanceException();
         }
         balance -= bet;
         currentBet = bet;
-
         isPlaying = true;
     }
 
@@ -49,15 +49,13 @@ public class Player {
         currentBet = 0;
     }
     public void blackjack() {
-        balance += (currentBet*2) * 1.5;
+        balance += currentBet*2+currentBet/2;
         currentBet = 0;
     }
-
     public void tie() {
         balance += currentBet;
         currentBet = 0;
     }
-
     public void lost() {
         currentBet = 0;
     }

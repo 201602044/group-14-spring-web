@@ -40,3 +40,4 @@ public class MenuApiController {
         return menuService.getTodayMenu(today);
     }
 }
+

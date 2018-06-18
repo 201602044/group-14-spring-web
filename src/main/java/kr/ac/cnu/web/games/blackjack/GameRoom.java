@@ -53,8 +53,24 @@ public class GameRoom {
     public void plusbet(String name) {
         Player player = playerList.get(name);
         long i=player.getCurrentBet();
-        player.tie();
-        player.placeBet(i*2);
+        long k=player.getBalance();
+        if(i*2>=10000) {
+           if(k<(10000-i)){
+               player.setBalance(0);
+               player.setCurrentBet((10000-i+k));
+               return;
+           }
+            player.setBalance(k-(10000-i));
+            player.setCurrentBet(10000);
+           return;
+        }
+        if(k<i){
+            player.setBalance(0);
+            player.setCurrentBet(k+i);
+            return;
+        }
+        player.setBalance(k-i);
+        player.setCurrentBet(2*i);
     }
 
     public void deal() {

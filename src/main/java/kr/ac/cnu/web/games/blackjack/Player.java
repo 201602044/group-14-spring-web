@@ -67,5 +67,10 @@ public class Player {
     public void stand() {
         this.isPlaying = false;
     }
-
+    public void setCurrentBet(long bet){
+        currentBet=bet;
+    }
+    public void setBalance(long bet){
+        balance=bet;
+    }
 }

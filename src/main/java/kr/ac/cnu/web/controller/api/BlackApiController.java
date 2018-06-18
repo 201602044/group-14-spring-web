@@ -73,7 +73,6 @@ public class BlackApiController {
     @PostMapping("/rooms/{roomId}/hit")
     public GameRoom hit(@RequestHeader("name") String name, @PathVariable String roomId) {
         User user = this.getUserFromSession(name);
-
         return blackjackService.hit(roomId, user);
     }
 

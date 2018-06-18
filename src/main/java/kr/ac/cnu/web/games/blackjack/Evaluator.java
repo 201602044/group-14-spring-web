@@ -19,33 +19,30 @@ public class Evaluator {
             return false;
         }
 
-        int dealerResult = dealer.getHand().getCardSum();
 
         playerMap.forEach((s, player) -> {
+            int dealerResult = dealer.getHand().getCardSum();
+            if(dealerResult > 21) dealerResult=0;
             int playerResult = player.getHand().getCardSum();
             if(playerResult==21){
                 player.blackjack();
             }
             else if (playerResult > 21) {
-
                 player.lost();
             }else if (playerResult > dealerResult) {
                 player.win();
-            } else if (playerResult == dealerResult) {
+            }else if (playerResult == dealerResult) {
                 player.tie();
-            } else {
+            }else {
                 if(dealerResult < 22)
                     player.lost();
                 else
                     player.win();
             }
+            player.getHand();
         });
 
-        if (dealerResult > 21) {
-            playerMap.forEach((s, player) -> player.win());
 
-            return true;
-        }
 
         return true;
     }

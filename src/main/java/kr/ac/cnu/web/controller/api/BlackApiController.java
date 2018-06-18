@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.awt.*;
+import java.util.*;
 import java.util.Optional;
 
 /**
@@ -87,8 +87,31 @@ public class BlackApiController {
         return blackjackService.getGameRoom(roomId);
     }
 
+    @PostMapping("/rooms/{roomId}/rank")
+    public List rank(@PathVariable String roomId) {
+        List<User> userList = userRepository.findAll();
+        List<User> rankList = decendingSort(userList);
+        return userList;
+    }
 
     private User getUserFromSession(String name) {
         return userRepository.findById(name).orElseThrow(() -> new NoLoginException());
+    }
+
+    //랭킹 서비스를 위한 내림차순 정령
+    private List<User> decendingSort(List<User> userList){
+        Collections.sort(userList, new Decending());
+        return userList;
+    }
+
+    //내림차순을 위한 내부 클래스 구현
+    class Decending implements Comparator<User>{
+
+        @Override
+        public int compare(User o1, User o2) {
+            Long value1 = o1.getAccount();
+            Long value2 = o2.getAccount();
+            return value2.compareTo(value1);
+        }
     }
 }

@@ -8,6 +8,8 @@
 
 </head>
 <body>
+<div id="rank"></div>
+
 <div class="page" id="login">
     <div>
         <input type="text" id="input_login_name" />
@@ -56,6 +58,7 @@
     var gameRoomId;
     var i=0;
     var defaultBet=1000;
+
     $('#login_button').click(function() {
         var loginName = $('#input_login_name').val();
         $.ajax({
@@ -257,7 +260,45 @@ $('#doubledown').click(function(){
         $('#bet').html(gameRoom.playerList[user.name].currentBet);
         $('#money').html(gameRoom.playerList[user.name].balance);
         $('#name_money').html("이름"+user.name+"\n머니"+$('#money').html());
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/api/black-jack/rooms/' + gameRoomId + '/rank',
+        }).done(function (data) {
+            console.log(data);
+            $('#rank').empty();
+            var child = "<ol>";
+
+            for(var i = 0; i < data.length; i++)  {
+                child += "<li>" + data[i].name + " " + data[i].account + "</li>";
+                if (i == 9) break;
+            }
+
+            child += "</ol>";
+            console.log(child);
+            $('#rank').append("<div class='rank_header'> Top 10 </div>" + child);
+        });
     }
+
+    $(document).ready(function() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/api/black-jack/rooms/' + gameRoomId + '/rank',
+        }).done(function (data) {
+            console.log(data);
+            $('#rank').empty();
+            var child = "<ol>";
+
+            for(var i = 0; i < data.length; i++)  {
+                child += "<li>" + data[i].name + " " + data[i].account + "</li>";
+                if (i == 9) break;
+            }
+
+            child += "</ol>";
+            console.log(child);
+            $('#rank').append("<div class='rank_header'> Top 10 </div>" + child);
+        });
+    });
 
     function generateCardDiv(rank, suit) {
         var className = "";

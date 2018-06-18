@@ -45,4 +45,12 @@ public class Deck {
         return cardList.remove(0);
     }
 
+    public void shuffle() {
+        if (cardList.size() <= 10) {
+            cardList.clear();
+            createCards(number);
+            Collections.shuffle(cardList);
+        }
+    }
+
 }

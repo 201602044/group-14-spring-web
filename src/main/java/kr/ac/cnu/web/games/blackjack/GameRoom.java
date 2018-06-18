@@ -97,4 +97,8 @@ public class GameRoom {
         this.isFinished = true;
     }
 
+    public void shuffleDeck() {
+        deck.shuffle();
+    }
+
 }

@@ -56,8 +56,8 @@ public class BlackjackService {
         GameRoom gameRoom = gameRoomMap.get(roomId);
         gameRoom.hit(user.getName());
         //System.out.println(gameRoom.getPlayerList().get(user.getName()).getBalance());
-        user.setAccount(gameRoom.getPlayerList().get(user.getName()).getBalance());
-        userRepository.save(user);
+        //user.setAccount(gameRoom.getPlayerList().get(user.getName()).getBalance());
+        //userRepository.save(user);
 
         return gameRoom;
     }
@@ -67,6 +67,7 @@ public class BlackjackService {
         if(i==1)gameRoom.plusbet(user.getName());
         gameRoom.stand(user.getName());
         gameRoom.playDealer();
+        gameRoom.shuffleDeck();
         user.setAccount(gameRoom.getPlayerList().get(user.getName()).getBalance());
         userRepository.save(user);
 

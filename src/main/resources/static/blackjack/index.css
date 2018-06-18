@@ -394,3 +394,16 @@
             color: green;
             font-size: 21px;
         }
+
+        #rank {
+            position: fixed;
+            left: 100px;
+            top : 200px;
+            border : 1px solid black;
+            padding : 40px;
+        }
+
+        #rank .rank_header {
+            color: red;
+            font-size: 18px;
+        }

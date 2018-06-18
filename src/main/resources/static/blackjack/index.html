@@ -127,7 +127,6 @@
                 'name':user.name
             },
         }).done(function(data) {
-
             drawGameRoom(data);
         if($('#playerTotal').html()>21){
         stand();
@@ -157,7 +156,11 @@ function stand(){
         var bet = defaultBet;
         var currentBet = parseInt($('#bet').html());
         var money = parseInt($('#money').html());
+        if(defaultBet==0) defaultBet=1000;
+        else if(defaultBet>money) defaultBet=money;
+        <!--defaultBet에서 배팅금액이 0원일시 1000으로 되게 수정한다 .-->
         if (money < bet) {
+            defaultValue=money;
             return;
         }
 

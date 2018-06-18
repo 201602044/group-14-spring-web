@@ -119,7 +119,7 @@
 
     $('#hit').click(function() {
         if(i>=2) return;
-        i++;
+        else if(i==1)i++;
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/black-jack/rooms/' + gameRoomId + '/hit',
@@ -129,11 +129,18 @@
         }).done(function(data) {
 
             drawGameRoom(data);
+        if($('#playerTotal').html()>21){
+        stand();
+        }
         });
+
     })
 
     $('#stand').click(function() {
-        defaultBet=parseInt($('#bet').html());
+     stand();
+    })
+function stand(){
+   defaultBet=parseInt($('#bet').html());
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/black-jack/rooms/' + gameRoomId + '/stand',
@@ -145,8 +152,7 @@
         }).done(function(data) {
             drawGameRoom(data);
         });
-    })
-
+}
     $('#more').click(function(){
         var bet = defaultBet;
         var currentBet = parseInt($('#bet').html());

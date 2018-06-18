@@ -139,6 +139,7 @@
      stand();
     })
 function stand(){
+    if(i>1) i=1;
    defaultBet=parseInt($('#bet').html());
         $.ajax({
             type: 'POST',
